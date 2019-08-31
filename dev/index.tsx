@@ -65,8 +65,7 @@ const nodeType3Styles = css({
 
 const dagWrapperStyles = css({
   background: "white",
-  height: `calc(100vh - ${HEIGHT_OF_HEADER}px - ${HEIGHT_OF_BUTTON_PANEL +
-    1}px)`,
+  height: `calc(100vh - ${HEIGHT_OF_BUTTON_PANEL + 0}px)`,
   width: "100vw",
 });
 
@@ -164,26 +163,28 @@ class App extends React.Component {
     }
   };
   public wipeout = () => {
-    this.setState({
-      loading: true,
-      nodes: [],
-      connections: []
-    }, () => {
-      setTimeout(() => {
-        this.setState({
-          loading: false
-        });
-      });
-    });
+    // this.setState({
+    //   loading: true,
+    //   nodes: [],
+    //   connections: []
+    // }, () => {
+    //   setTimeout(() => {
+    //     this.setState({
+    //       loading: false
+    //     });
+    //   });
+    // });
+    console.log(JSON.stringify(this.state.nodes));
+    console.log(JSON.stringify(this.state.connections));
   };
   public render() {
     if (this.state.loading) {
       return 'Loading ...';
     }
     return [
-      <h1 className={`${headerStyles}`} key="title">
-        An example of React DAG
-      </h1>,
+      // <h1 className={`${headerStyles}`} key="title">
+      //   An example of React DAG
+      // </h1>,
       <div className={`${buttonPanelStyles}`} key="button-panel">
         <button
           className={`${buttonStyles} ${nodeType1Styles}`}

@@ -204,7 +204,7 @@ export default class DAG extends React.Component<IDAGProps, IDAGState> {
     if (!this.state.jsPlumbInstance) {
       return;
     }
-    this.state.jsPlumbInstance.deleteEveryConnection();
+    // this.state.jsPlumbInstance.deleteEveryConnection();
     this.props.connections.forEach((connObj) => {
       const newConnObj = this.getNewConnectionObj(connObj, this.props.connectionEncoders);
       if (

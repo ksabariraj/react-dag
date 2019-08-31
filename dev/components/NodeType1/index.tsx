@@ -32,6 +32,20 @@ export const nodeStyles = css({
   height: '100px',
   position: 'absolute',
   width: '200px',
+  
+});
+
+const closeButton = css({
+  position: 'absolute',
+  top: '-12px',
+  right: '-13px',
+  backgroundColor: '#ccc',
+  width: '20px',
+  height: '20px',
+  borderRadius: '50%',
+  padding: '2px',
+  textAlign: 'center',
+  zInedx: 1
 });
 
 export default class NodeType1 extends DefaultNode {
@@ -54,7 +68,13 @@ export default class NodeType1 extends DefaultNode {
       ],
       makeTargetParams: {
         allowLoopback: false,
-        anchor: 'ContinuousLeft',
+        // anchor: 'ContinuousLeft',
+        anchor:[
+          [ 0.5, 0, 0, -1, 0, 0, "top" ],
+          [ 1, 0.5, 1, 0, 0, 0, "right" ],
+          [ 0.5, 1, 0, 1, 0, 0, "bottom" ],
+          [ 0, 0.5, -1, 0, 0, 0, "left" ]
+        ],
         dropOptions: { hoverClass: 'drag-hover' },
         isTarget: true,
       },
@@ -62,10 +82,22 @@ export default class NodeType1 extends DefaultNode {
     };
     this.props.initNode(initConfig);
   }
+  
+  private doubleClick() {
+    alert('')
+  }
+
+  private delete() {
+
+  }
+
   public render() {
     return (
-      <div id={this.props.id} className={`${nodeStyles}`} style={this.props.config.style}>
+      <div id={this.props.id} className={`${nodeStyles}`} style={this.props.config.style} onDoubleClick={this.doubleClick}>
         <div className={`${nodeWrapperStyles}`}>
+          <span className={`${closeButton}`} data-cy="close-button" onClick={this.delete}>
+            X
+          </span>
           {this.props.config.label ? this.props.config.label : this.props.id}
           <div
             id={`${this.props.id}-right`}

@@ -13,8 +13,15 @@ const modNodeStyle = css({
 
 const closeButton = css({
   position: 'absolute',
-  top: '5px',
-  right: '10px',
+  top: '-12px',
+  right: '-13px',
+  backgroundColor: '#ccc',
+  width: '20px',
+  height: '20px',
+  borderRadius: '50%',
+  padding: '2px',
+  textAlign: 'center',
+  zInedx: 1
 });
 
 const modEndpointStyles = css({});

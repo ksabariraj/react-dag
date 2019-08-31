@@ -33,12 +33,15 @@ export const defaultSettings = Object.assign(
     Connector: [
       'Flowchart',
       {
-        alwaysRespectStubs: true,
+        alwaysRespectStubs: false,
         cornerRadius: 20,
         midpoint: 0.2,
-        stub: [10, 15],
+        stub: 30,
       },
     ],
+    // connector: ["Bezier", { curviness: 150 }] ,
+    // connector: ["Flowchart", { minStubLength: 40 }],
+    // connector: ["StateMachine", { proximityLimit: 0, curviness: -46 }],
     Endpoint: 'Dot',
     EndpointStyle: { radius: 10 },
   },
@@ -78,7 +81,7 @@ export const conditionRightEndpoint = {
   ...sourceSettings,
 };
 
-export const conditionBottomEndpoint = {
+export const conditionLeftEndpoint = {
   anchor: 'Bottom',
   overlays: [
     [
@@ -86,6 +89,21 @@ export const conditionBottomEndpoint = {
       {
         id: 'noLabel',
         label: 'No',
+        location: [0.5, -0.55],
+      },
+    ],
+  ],
+  ...sourceSettings,
+};
+
+export const conditionBottomEndpoint = {
+  anchor: 'Bottom',
+  overlays: [
+    [
+      'Label',
+      {
+        id: 'otherLabel',
+        label: '',
         location: [0.5, -0.55],
       },
     ],
@@ -121,6 +139,7 @@ export function getSettings(isDisabled = false) {
       commonSettings,
       conditionBottomEndpoint,
       conditionRightEndpoint,
+      conditionLeftEndpoint,
       default: defaultSettings,
       sink: sinkSettings,
       source: sourceSettings,
@@ -132,6 +151,7 @@ export function getSettings(isDisabled = false) {
       commonSettings,
       conditionBottomEndpoint,
       conditionRightEndpoint,
+      conditionLeftEndpoint,
       default: defaultSettings,
       sink: sinkSettings,
       source: sourceSettings,

@@ -9,21 +9,51 @@ import { theme } from '../../styles';
 
 const nodeStyles = css({
   background: 'white',
+  // border: `2px solid ${theme.main.colors.blueGreen}`,
+  cursor: 'pointer',
+  height: '151px',
+  position: 'absolute',
+  width: '150px',
+});
+
+const label = css({
+  cursor: 'pointer',
+  height: '151px',
+  position: 'absolute',
+  width: '150px',
+  pointerEvents: 'none',
+  textAlign: 'center',
+  display: 'flex',
+  verticalAlign: 'middle',
+  alignItems: 'center'
+});
+
+
+const nodeStyles1 = css({
+  background: 'white',
   border: `2px solid ${theme.main.colors.yellow}`,
   cursor: 'pointer',
   height: '105px',
   position: 'absolute',
   width: '105px',
+  transform: 'rotate(45deg)',
+  left: '21px',
+  top: '21px'
 });
 
+
 const modEndPointStyles = css({
-  '&.bottom': {
-    left: '45px',
-    top: '80px',
+  '&.left': {
+    left: '-17px',
+    top: '51px',
   },
   '&.right': {
-    left: '95px',
-    top: '18px',
+    left: '143px',
+    top: '51px',
+  },
+  '&.bottom': {
+    left: '63px',
+    top: '130px',
   },
 });
 
@@ -35,10 +65,11 @@ const closeButton = css({
 
 export default class NodeType3 extends DefaultNode {
   private rightEndpointRef: HTMLElement | null;
+  private LeftEndpointRef: HTMLElement | null;
   private bottomEndpointRef: HTMLElement | null;
 
   public componentDidMount() {
-    const { conditionBottomEndpoint, conditionRightEndpoint } = getSettings() as any;
+    const { conditionBottomEndpoint, conditionRightEndpoint, conditionLeftEndpoint } = getSettings() as any;
     const initConfig = {
       endPointParams: [
         {
@@ -52,6 +83,15 @@ export default class NodeType3 extends DefaultNode {
           referenceParams: {},
         },
         {
+          element: this.LeftEndpointRef,
+          params: {
+            ...conditionLeftEndpoint,
+            uuid: `${this.props.id}-condition-left`,
+            cssClass: `${this.props.id}-condition-left`,
+          },
+          referenceParams: {},
+        },
+        {
           element: this.bottomEndpointRef,
           params: {
             ...conditionBottomEndpoint,
@@ -59,11 +99,12 @@ export default class NodeType3 extends DefaultNode {
             cssClass: `${this.props.id}-condition-bottom`,
           },
           referenceParams: {},
-        },
+        }
       ],
       makeTargetParams: {
         allowLoopback: false,
-        anchor: 'ContinuousLeft',
+        // anchor: 'ContinuousLeft',
+        anchor: 'TopCenter',
         dropOptions: { hoverClass: 'drag-hover' },
         isTarget: true,
       },
@@ -82,8 +123,13 @@ export default class NodeType3 extends DefaultNode {
   public render() {
     return (
       <div id={this.props.id} className={`${nodeStyles}`} style={this.props.config.style}>
+        <div className={`${nodeStyles1}`}>
+
+        </div>
         <div className={`${nodeWrapperStyles}`}>
+          <div className={`${label}`}>
           {this.props.config.label ? this.props.config.label : this.props.id}
+          </div>
           <span className={`${closeButton}`} data-cy="close-button" onClick={this.delete}>
             X
           </span>
@@ -91,6 +137,11 @@ export default class NodeType3 extends DefaultNode {
             id={`${this.props.id}-condition-right`}
             ref={(ref) => (this.rightEndpointRef = ref)}
             className={`${endPointStyles} ${modEndPointStyles} right`}
+          />
+          <div
+            id={`${this.props.id}-condition-left`}
+            ref={(ref) => (this.LeftEndpointRef = ref)}
+            className={`${endPointStyles} ${modEndPointStyles} left`}
           />
           <div
             id={`${this.props.id}-condition-bottom`}
